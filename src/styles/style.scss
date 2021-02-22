@@ -1,0 +1,156 @@
+$slider-width: 400px;
+$slider-height: 300px;
+
+@mixin _450{
+  @media (max-width: 450px){
+    @content;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  background-color: #FAFAFA;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  letter-spacing: 0.15em;
+  font-size: 22px;
+}
+
+.carousel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $slider-width;
+  height: $slider-height;
+  box-shadow: 3px 3px 10px rgba(0,0,0,.2);
+
+  @include _450 {
+    width: 300px;
+    height: 225px;
+  }
+}
+
+.wrapper {
+  overflow: hidden;
+  position: relative;
+  width: $slider-width;
+  height: $slider-height;
+  z-index: 1;
+
+  @include _450 {
+    width: 300px;
+    height: 225px;
+  }
+}
+
+.carousel__inner {
+  display: flex;
+  position: relative;
+  top: 0;
+  left: -$slider-width;
+  width: 10000px;
+
+  @include _450 {
+    left: -300px;
+  }
+}
+
+.carousel__inner.shifting {
+  transition: left .2s ease-out;
+}
+
+.carousel__item {
+  width: $slider-width;
+  height: $slider-height;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 1s;
+  position: relative;
+  background: #DA4167;
+  border-radius: 2px;
+
+  @include _450 {
+    width: 300px;
+    height: 225px;
+  }
+}
+
+.carousel.loaded {
+  .carousel__item:nth-child(2),
+  .carousel__item:nth-child(7) { background: #DA4167 }
+  .carousel__item:nth-child(1),
+  .carousel__item:nth-child(6) { background: #BBC5AA }
+  .carousel__item:nth-child(3) { background: #854798 }
+  .carousel__item:nth-child(4) { background: #DECDF5 }
+  .carousel__item:nth-child(5) { background: #7CA5B8 }
+}
+
+.controls {
+  .control__item {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background: #fff no-repeat center;
+    margin-top: -20px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    background-size: 22px;
+    cursor: pointer;
+  }
+
+  .prev {
+    background-image: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-left-c-512.png);
+    left: -20px;
+  }
+
+  .next {
+    background-image: url(https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-right-c-512.png);
+    right: -20px;
+  }
+
+  .prev:active,
+  .next:active {
+    transform: scale(.8);
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+
+  .dots__inner {
+    display: flex;
+    list-style-type: none;
+
+    .dot__item:nth-child(-n+4) {
+      margin-right: 10px;
+    }
+
+    button {
+      border-radius: 15px;
+      border: 0;
+      width: 15px;
+      height: 15px;
+      background: #A8A8A8;
+    }
+
+    .dot__item--active {
+      button {
+        background: #0095F6;
+      }
+    }
+  }
+}
+
